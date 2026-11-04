@@ -1,0 +1,19 @@
+{
+  "id": "./",
+  "name": "PrivacyGuard OSINT Suite 3.1 — Privacy & Security Workspace",
+  "short_name": "PrivacyGuard",
+  "description": "Платформа цифровой приватности, анализа публичных данных, аудита разрешённых активов и автономных локальных инструментов.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "background_color": "#090b13",
+  "theme_color": "#090b13",
+  "orientation": "any",
+  "categories": ["security", "utilities", "productivity"],
+  "icons": [
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "assets/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

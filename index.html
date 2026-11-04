@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090b13">
+  <meta name="description" content="PrivacyGuard — личный центр цифровой приватности и мониторинга безопасности аккаунтов и доменов.">
+  <title>PrivacyGuard OSINT Suite 3.1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/pg31.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+  <script type="module" src="js/app.js"></script>
+  <script type="module" src="js/v3.js"></script>
+  <script type="module" src="js/legal.js"></script>
+  <script type="module" src="js/offline.js"></script>
+</head>
+<body>
+  <svg class="svg-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2L12 3Z"/><path d="m19 15 .8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15Z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="i-log-out" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5M15 12H3"/><path d="M12 3h6a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3h-6"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="7.3"/><path d="m16.2 16.2 4.3 4.3"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="m18 6-12 12M6 6l12 12"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.8 2.7 17a2 2 0 0 0 1.7 3h15.2a2 2 0 0 0 1.7-3L13.7 3.8a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4m0 4h.01"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.6-2L20 12M4 12l2.8 5a7 7 0 0 0 11.6-2"/></symbol>
+    <symbol id="i-google" viewBox="0 0 24 24"><path d="M21.35 12.2c0-.7-.06-1.2-.18-1.8H12v3.4h5.36a4.6 4.6 0 0 1-1.99 3.02v2.27h3.22c1.88-1.73 2.76-4.28 2.76-6.9Z" fill="currentColor" stroke="none"/><path d="M12 21.6c2.7 0 4.96-.9 6.62-2.43l-3.22-2.27c-.9.61-2.05.98-3.4.98-2.62 0-4.85-1.77-5.65-4.15H3.03v2.34A10 10 0 0 0 12 21.6Z" fill="currentColor" stroke="none" opacity=".72"/><path d="M6.35 13.73a6 6 0 0 1 0-3.46V7.93H3.03a10 10 0 0 0 0 8.14l3.32-2.34Z" fill="currentColor" stroke="none" opacity=".52"/><path d="M12 6.12c1.47 0 2.79.5 3.83 1.5l2.87-2.87C16.95 3.1 14.7 2.2 12 2.2a10 10 0 0 0-8.97 5.73l3.32 2.34C7.15 7.9 9.38 6.12 12 6.12Z" fill="currentColor" stroke="none" opacity=".88"/></symbol>
+    <symbol id="i-folder-kanban" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M8 10v6m4-6v3m4-3v6"/></symbol>
+    <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+    <symbol id="i-radar" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 12 18.5 6M12 3v2m9 7h-2M3 12h2m7 9v-2"/><circle cx="12" cy="12" r="2"/></symbol>
+    <symbol id="i-file-chart-column" viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M13 2v7h7M8 17v-3m4 3v-6m4 6v-5"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9z"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="M19.73 9.93 L19.83 10.34 L22.37 9.80 L22.37 14.20 L19.83 13.66 L19.73 14.07 L18.93 16.00 L18.71 16.36 L20.89 17.77 L17.77 20.89 L16.36 18.71 L16.00 18.93 L14.07 19.73 L13.66 19.83 L14.20 22.37 L9.80 22.37 L10.34 19.83 L9.93 19.73 L8.00 18.93 L7.64 18.71 L6.23 20.89 L3.11 17.77 L5.29 16.36 L5.07 16.00 L4.27 14.07 L4.17 13.66 L1.63 14.20 L1.63 9.80 L4.17 10.34 L4.27 9.93 L5.07 8.00 L5.29 7.64 L3.11 6.23 L6.23 3.11 L7.64 5.29 L8.00 5.07 L9.93 4.27 L10.34 4.17 L9.80 1.63 L14.20 1.63 L13.66 4.17 L14.07 4.27 L16.00 5.07 L16.36 5.29 L17.77 3.11 L20.89 6.23 L18.71 7.64 L18.93 8.00 Z"/><circle cx="12" cy="12" r="3.1"/></symbol>
+
+  </svg>
+
+  <div id="bootScreen" class="boot-screen">
+    <div class="brand-mark large"><svg><use href="#i-shield"/></svg></div>
+    <div class="boot-name">Privacy<span>Guard</span></div>
+    <div class="loader-line"><i></i></div>
+    <p>Подготавливаем защищённое пространство…</p>
+  </div>
+
+  <!-- AUTH -->
+  <main id="authView" class="auth-layout" hidden>
+    <section class="auth-story">
+      <div class="story-top"><a class="brand" href="#"><span class="brand-mark"><svg><use href="#i-shield"/></svg></span><span>Privacy<span>Guard</span></span></a><span class="status-chip"><i></i> SECURITY SPACE</span></div>
+      <div class="story-content">
+        <div class="eyebrow"><span class="eyebrow-line"></span> ТВОЯ ЦИФРОВАЯ ПРИВАТНОСТЬ</div>
+        <h1>Твоя цифровая жизнь.<br><em>Под твоим контролем.</em></h1>
+        <p class="story-lead">Один центр для исследования публичных данных, аудита доменов и защиты цифрового следа.</p>
+        <div class="story-visual" aria-hidden="true">
+          <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit orbit-three"></div>
+          <div class="visual-core"><div class="visual-core-inner"><svg><use href="#i-shield"/></svg><span class="core-pulse"></span></div></div>
+          <div class="float-tag tag-top"><span class="tag-dot green"></span> PRIVATE SESSION</div>
+          <div class="float-tag tag-bottom"><svg><use href="#i-lock"/></svg> Личные данные под защитой</div>
+          <div class="visual-spark spark-a"></div><div class="visual-spark spark-b"></div>
+        </div>
+        <div class="story-points">
+          <div><span class="point-icon"><svg><use href="#i-search"/></svg></span><span><b>Публичные источники</b><small>Без взлома и доступа к чужим аккаунтам</small></span></div>
+          <div><span class="point-icon"><svg><use href="#i-globe"/></svg></span><span><b>Контроль доменов</b><small>DNS, почта, TLS и важные изменения</small></span></div>
+        </div>
+      </div>
+      <div class="story-footer"><span>PRIVACY IS A RIGHT</span><span>© 2026 PRIVACYGUARD</span></div>
+    </section>
+
+    <section class="auth-side">
+      <div class="auth-side-top"><span class="mobile-brand"><span class="brand-mark"><svg><use href="#i-shield"/></svg></span>Privacy<span>Guard</span></span><span class="secure-label"><svg><use href="#i-lock"/></svg> Защищённое соединение</span></div>
+      <div class="auth-card-wrap">
+        <div class="auth-heading"><div class="eyebrow">ЛИЧНЫЙ КАБИНЕТ</div><h2 id="authTitle">С возвращением</h2><p id="authSubtitle">Войдите, чтобы открыть свою панель приватности.</p></div>
+        <div class="auth-tabs"><button class="auth-tab active" type="button" data-auth-tab="login">Вход</button><button class="auth-tab" type="button" data-auth-tab="register">Регистрация</button></div>
+
+        <form id="loginForm" class="auth-form" novalidate>
+          <label class="field"><span>Email</span><div class="input-wrap"><svg><use href="#i-mail"/></svg><input id="loginEmail" type="email" placeholder="name@example.com" autocomplete="email" maxlength="254" required></div></label>
+          <label class="field"><span>Пароль</span><div class="input-wrap"><svg><use href="#i-lock"/></svg><input id="loginPassword" type="password" placeholder="Введите пароль" autocomplete="current-password" required><button type="button" class="password-toggle" data-toggle-password="loginPassword" aria-label="Показать пароль">◉</button></div></label>
+          <div class="form-meta"><span class="form-hint">Ваш аккаунт синхронизируется с Firebase</span><button type="button" id="forgotPassword" class="text-button">Забыли пароль?</button></div><label class="pg-auth-cache"><input type="checkbox" id="pgTrustedDeviceAuth"><span><b>Это моё личное устройство</b><small>Разрешить локальный офлайн-кэш Firestore после перезапуска. Не включай на общих устройствах.</small></span></label>
+          <button class="btn btn-primary btn-full" type="submit" id="loginSubmit">Войти в PrivacyGuard <svg><use href="#i-arrow"/></svg></button>
+        </form>
+
+        <form id="registerForm" class="auth-form" hidden novalidate>
+          <label class="field"><span>Ваше имя</span><div class="input-wrap"><svg><use href="#i-user"/></svg><input id="registerName" type="text" placeholder="Как к вам обращаться" autocomplete="name" maxlength="48" required></div></label>
+          <label class="field"><span>Email</span><div class="input-wrap"><svg><use href="#i-mail"/></svg><input id="registerEmail" type="email" placeholder="name@example.com" autocomplete="email" maxlength="254" required></div></label>
+          <label class="field"><span>Пароль</span><div class="input-wrap"><svg><use href="#i-lock"/></svg><input id="registerPassword" type="password" placeholder="Минимум 8 символов" autocomplete="new-password" minlength="8" required><button type="button" class="password-toggle" data-toggle-password="registerPassword" aria-label="Показать пароль">◉</button></div></label>
+          <label class="field"><span>Повторите пароль</span><div class="input-wrap"><svg><use href="#i-lock"/></svg><input id="registerPasswordConfirm" type="password" placeholder="Введите пароль ещё раз" autocomplete="new-password" minlength="8" required></div></label>
+          <button class="btn btn-primary btn-full" type="submit" id="registerSubmit">Создать аккаунт <svg><use href="#i-arrow"/></svg></button>
+          <p class="terms-note">Создавая аккаунт, вы соглашаетесь использовать сервис только для проверки собственных данных и доменов, к которым у вас есть разрешение.</p>
+        </form>
+
+        <div class="auth-divider"><span>или продолжить с</span></div>
+        <button type="button" class="btn btn-google btn-full" id="googleSignIn"><svg><use href="#i-google"/></svg> Google</button>
+        <div class="auth-bottom" id="authBottom">Нет аккаунта? <button type="button" class="text-button" data-auth-tab="register">Создать аккаунт</button></div>
+        <div class="auth-note"><svg><use href="#i-shield"/></svg><span>Мы не запрашиваем ваши пароли от сторонних сервисов и не храним пароли проверяемых аккаунтов.</span></div>
+      </div>
+      <div class="auth-side-footer">© 2026 PrivacyGuard <span>·</span> Центр цифровой приватности</div>
+    </section>
+  </main>
+
+  <!-- APP -->
+  <div id="appView" class="app-shell" hidden>
+    <div id="sidebarScrim" class="sidebar-scrim"></div>
+    <aside class="sidebar" id="sidebar">
+      <a class="brand sidebar-brand" href="#overview"><span class="brand-mark"><svg><use href="#i-shield"/></svg></span><span>Privacy<span>Guard</span></span></a>
+      <div class="workspace-label">OSINT WORKSPACE</div>
+      <nav class="side-nav" aria-label="Навигация">
+        <button type="button" class="nav-item active" data-page="overview"><svg><use href="#i-grid"/></svg><span>Обзор</span></button>
+        <button type="button" class="nav-item" data-page="ip"><svg><use href="#i-globe"/></svg><span>IP Intelligence</span></button>
+        <button type="button" class="nav-item" data-page="domains"><svg><use href="#i-search"/></svg><span>Домены и DNS</span></button>
+        <button type="button" class="nav-item" data-page="identifiers"><svg><use href="#i-lock"/></svg><span>BIN / VIN / IBAN</span></button>
+        <button type="button" class="nav-item" data-page="username"><svg><use href="#i-user"/></svg><span>Username OSINT</span></button>
+        <button type="button" class="nav-item" data-page="phone"><svg><use href="#i-mail"/></svg><span>Телефон и email</span></button>
+        <button type="button" class="nav-item" data-page="url"><svg><use href="#i-globe"/></svg><span>URL-анализ</span></button>
+        <button type="button" class="nav-item" data-page="tools"><svg><use href="#i-spark"/></svg><span>Инструменты</span></button>
+        <button type="button" class="nav-item" data-page="recommendations"><svg><use href="#i-shield"/></svg><span>Центр защиты</span></button>
+        <button type="button" class="nav-item" data-page="history"><svg><use href="#i-clock"/></svg><span>История</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="sidebar-help"><div class="help-orb"><svg><use href="#i-shield"/></svg></div><b>Используй OSINT ответственно</b><p>Работай с публичными данными и проверяй только то, на что имеешь право.</p><button type="button" data-page="tools">Открыть инструменты <svg><use href="#i-arrow"/></svg></button></div>
+        <button type="button" class="nav-item profile-nav" data-page="profile"><svg><use href="#i-user"/></svg><span>Мой профиль</span></button>
+        <button type="button" class="nav-item logout-nav" id="logoutButton"><svg><use href="#i-log-out"/></svg><span>Выйти</span></button>
+        <div class="sidebar-version"><span class="version-dot"></span> PrivacyGuard <span>v3.1 OSINT</span></div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="topbar-left"><button type="button" class="icon-button mobile-menu" id="mobileMenu" aria-label="Открыть меню"><svg><use href="#i-menu"/></svg></button><div class="breadcrumb"><span>PrivacyGuard</span><b>/</b><strong id="breadcrumbTitle">Обзор</strong></div></div>
+        <div class="topbar-right"><div class="topbar-status"><i></i> Security workspace · 3.0</div><div class="topbar-divider"></div><button type="button" class="user-chip" data-page="profile"><span class="user-avatar" id="topAvatar">PG</span><span class="user-chip-copy"><b id="topUserName">Пользователь</b><small id="topUserEmail">user@example.com</small></span><span class="chevron">⌄</span></button></div>
+      </header>
+
+      <div class="content-area">
+        <section class="page-panel active" id="page-overview">
+          <div class="page-heading heading-row"><div><div class="eyebrow">DIGITAL FOOTPRINT CONSOLE</div><h1>OSINT-панель, <span id="welcomeName">пользователь</span></h1><p>Публичные сведения о сетях, доменах, идентификаторах и цифровом следе.</p></div><div class="heading-date"><span class="date-dot"></span><span id="todayLabel">Сегодня</span></div></div>
+          <div class="hero-panel"><div class="hero-copy"><div class="hero-badge"><span></span> PRIVACYGUARD OSINT SUITE</div><h2>Изучай публичный след.<br><em>Управляй приватностью.</em></h2><p>IP, DNS, RDAP, сертификаты, VIN, BIN, MAC, URL и локальные инструменты — в одном интерфейсе.</p><button type="button" class="btn btn-light" data-page="ip">Начать исследование <svg><use href="#i-arrow"/></svg></button></div><div class="hero-art" aria-hidden="true"><div class="hero-ring ring-a"></div><div class="hero-ring ring-b"></div><div class="hero-ring ring-c"></div><div class="hero-shield"><svg><use href="#i-shield"/></svg><span></span></div><div class="hero-orbit-dot dot-a"></div><div class="hero-orbit-dot dot-b"></div><div class="hero-art-label">PUBLIC DATA<br><b>YOUR CONTROL</b></div></div></div>
+          <div class="stats-grid">
+            <article class="stat-card"><div class="stat-top"><span>Всего исследований</span><span class="stat-icon violet"><svg><use href="#i-search"/></svg></span></div><div class="stat-value" id="statScans">0</div><div class="stat-foot"><span class="stat-neutral">В истории аккаунта</span></div></article>
+            <article class="stat-card"><div class="stat-top"><span>Домены в списке</span><span class="stat-icon blue"><svg><use href="#i-globe"/></svg></span></div><div class="stat-value" id="statDomains">0</div><div class="stat-foot"><span class="stat-neutral">Сохранённые домены</span></div></article>
+            <article class="stat-card"><div class="stat-top"><span>Последние 7 дней</span><span class="stat-icon green"><svg><use href="#i-clock"/></svg></span></div><div class="stat-value" id="statRecent">0</div><div class="stat-foot"><span class="stat-neutral">Записей в журнале</span></div></article>
+            <article class="stat-card"><div class="stat-top"><span>Чек-лист защиты</span><span class="stat-icon orange"><svg><use href="#i-check"/></svg></span></div><div class="stat-value" id="statTasks">0<span class="stat-total">/ 6</span></div><div class="stat-foot"><span class="stat-positive">Выполнено</span><span class="mini-progress"><i id="taskProgress"></i></span></div></article>
+          </div>
+          <div class="osint-launch-grid">
+            <button type="button" class="osint-launch" data-page="ip"><span class="osint-launch-icon">IP</span><b>IP Intelligence</b><small>ASN, страна, PTR, открытые сервисы Shodan InternetDB</small><span class="launch-arrow">Открыть →</span></button>
+            <button type="button" class="osint-launch" data-page="domains"><span class="osint-launch-icon">DNS</span><b>Domain Intelligence</b><small>DNS, RDAP, почтовые записи и Certificate Transparency</small><span class="launch-arrow">Открыть →</span></button>
+            <button type="button" class="osint-launch" data-page="identifiers"><span class="osint-launch-icon">ID</span><b>BIN / VIN / IBAN</b><small>Метаданные BIN, декодирование VIN и локальная проверка IBAN</small><span class="launch-arrow">Открыть →</span></button>
+            <button type="button" class="osint-launch" data-page="username"><span class="osint-launch-icon">@</span><b>Username OSINT</b><small>Быстрый переход к публичным профилям и поисковым системам</small><span class="launch-arrow">Открыть →</span></button>
+          </div>
+          <article class="panel-card activity-card"><div class="panel-head"><div class="activity-heading-copy"><div class="eyebrow">RECENT ACTIVITY</div><h3>Последние исследования</h3></div><button type="button" class="text-button activity-history-link" data-page="history">Вся история <svg><use href="#i-arrow"/></svg></button></div><div id="overviewActivity" class="activity-list"><div class="empty-state compact"><span class="empty-icon"><svg><use href="#i-clock"/></svg></span><b>История пока пуста</b><p>Запусти первую проверку, чтобы увидеть события.</p></div></div></article>
+          <p class="disclaimer-line"><svg><use href="#i-info"/></svg> OSINT показывает только доступные публичные данные. Точность, полнота, доступность API и геолокация зависят от источника; IP-геолокация не определяет точный адрес человека.</p>
+        </section>
+
+        <section class="page-panel" id="page-ip">
+          <div class="page-heading"><div class="eyebrow">NETWORK INTELLIGENCE</div><h1>IP Intelligence</h1><p>Информация об IP, ASN, стране, обратном DNS и публично обнаруженных сервисах.</p></div>
+          <div class="panel-card tool-card"><form id="ipForm" class="tool-form"><label class="field"><span>IPv4 или IPv6 адрес</span><div class="input-wrap"><svg><use href="#i-globe"/></svg><input id="ipInput" type="text" placeholder="8.8.8.8 или 2001:4860:4860::8888" autocomplete="off" maxlength="64" required></div></label><div class="form-actions"><button class="btn btn-primary" type="submit" id="ipSubmit">Исследовать IP <svg><use href="#i-arrow"/></svg></button><button class="btn btn-ghost" type="button" id="myIpButton">Мой IP</button></div></form><div id="ipResults" class="osint-results" hidden></div></div>
+          <div class="source-strip"><span>Источники</span><a href="https://ipwho.is/" target="_blank" rel="noopener">IPwho.is</a><a href="https://internetdb.shodan.io/" target="_blank" rel="noopener">Shodan InternetDB</a><a href="https://rdap.org/" target="_blank" rel="noopener">RDAP</a><a href="https://www.abuseipdb.com/" target="_blank" rel="noopener">AbuseIPDB</a></div>
+          <p class="disclaimer-line"><svg><use href="#i-alert"/></svg> InternetDB — пассивная база ранее наблюдавшихся сервисов, не онлайн-сканер. Уязвимости в базе могут быть непроверенными. <a href="https://book.shodan.io/developer-apis/internetdb/" target="_blank" rel="noopener">Описание источника</a>.</p>
+        </section>
+
+        <section class="page-panel" id="page-domains">
+          <div class="page-heading"><div class="eyebrow">DOMAIN & DNS INTELLIGENCE</div><h1>Домены и DNS</h1><p>Публичный аудит DNS-записей, регистрации домена и Certificate Transparency.</p></div>
+          <div class="panel-card tool-card"><form id="domainForm" class="tool-form"><label class="field"><span>Доменное имя</span><div class="input-wrap"><svg><use href="#i-globe"/></svg><input id="domainInput" type="text" placeholder="example.com" autocomplete="url" maxlength="253" required></div></label><button class="btn btn-primary" type="submit" id="domainSubmit">Проверить домен <svg><use href="#i-arrow"/></svg></button></form><div id="domainResults" class="osint-results" hidden></div></div>
+          <div class="section-subhead"><div><h2>Сохранённые домены</h2><p>Повторный аудит доступен вручную</p></div><span class="count-pill" id="domainCount">0</span></div><div id="domainList" class="domain-list"><div class="empty-state"><span class="empty-icon"><svg><use href="#i-globe"/></svg></span><b>Список пуст</b><p>Добавь домен, чтобы сохранить его последний аудит.</p></div></div>
+          <div class="source-strip"><span>Источники</span><a href="https://dns.google/" target="_blank" rel="noopener">Google Public DNS</a><a href="https://rdap.org/" target="_blank" rel="noopener">RDAP</a><a href="https://crt.sh/" target="_blank" rel="noopener">crt.sh</a></div>
+        </section>
+
+        <section class="page-panel" id="page-identifiers">
+          <div class="page-heading"><div class="eyebrow">IDENTIFIER LOOKUPS</div><h1>BIN / VIN / IBAN</h1><p>Справочные сведения по открытым базам и локальные проверки контрольных сумм.</p></div>
+          <div class="osint-grid">
+            <article class="panel-card tool-card"><div class="tool-title"><span class="tool-symbol violet">BIN</span><div><h3>BIN / IIN Lookup</h3><p>Первые 6–8 цифр — система и банк-эмитент</p></div></div><form id="binForm" class="tool-form"><label class="field"><span>Префикс BIN (6–8 цифр)</span><div class="input-wrap"><svg><use href="#i-lock"/></svg><input id="binInput" inputmode="numeric" maxlength="24" placeholder="45717360 — только 6–8 цифр" required></div></label><button class="btn btn-primary" type="submit">Найти BIN <svg><use href="#i-arrow"/></svg></button></form><div id="binResults" class="osint-results" hidden></div><div class="inline-note"><svg><use href="#i-info"/></svg> Не вводи полный номер карты, CVV, PIN или срок действия. Используется только префикс. Публичный Binlist ограничивает частоту запросов.</div></article>
+            <article class="panel-card tool-card"><div class="tool-title"><span class="tool-symbol blue">VIN</span><div><h3>VIN Decoder</h3><p>Марка, модель, год и характеристики автомобиля</p></div></div><form id="vinForm" class="tool-form"><label class="field"><span>VIN (17 символов)</span><div class="input-wrap"><svg><use href="#i-search"/></svg><input id="vinInput" maxlength="17" placeholder="1HGCM82633A004352" autocomplete="off" required></div></label><button class="btn btn-primary" type="submit">Декодировать VIN <svg><use href="#i-arrow"/></svg></button></form><div id="vinResults" class="osint-results" hidden></div><div class="inline-note"><svg><use href="#i-info"/></svg> VIN описывает транспортное средство, но не раскрывает владельца или регистрационные персональные данные.</div></article>
+            <article class="panel-card tool-card"><div class="tool-title"><span class="tool-symbol green">IBAN</span><div><h3>Проверка IBAN</h3><p>Локальная проверка структуры и контрольной суммы</p></div></div><form id="ibanForm" class="tool-form"><label class="field"><span>IBAN</span><div class="input-wrap"><svg><use href="#i-lock"/></svg><input id="ibanInput" maxlength="34" placeholder="DE89370400440532013000" autocomplete="off" required></div></label><button class="btn btn-primary" type="submit">Проверить IBAN <svg><use href="#i-arrow"/></svg></button></form><div id="ibanResults" class="osint-results" hidden></div><div class="inline-note"><svg><use href="#i-info"/></svg> Проверка выполняется локально. Она не подтверждает существование счёта, баланс или личность владельца.</div></article>
+          </div>
+        </section>
+
+        <section class="page-panel" id="page-username">
+          <div class="page-heading"><div class="eyebrow">PUBLIC PROFILE DISCOVERY</div><h1>Username OSINT</h1><p>Открывай публичные поисковые страницы популярных платформ и проверяй собственный цифровой след.</p></div>
+          <article class="panel-card tool-card"><form id="usernameForm" class="tool-form"><label class="field"><span>Никнейм</span><div class="input-wrap"><svg><use href="#i-user"/></svg><input id="usernameInput" maxlength="64" placeholder="например, modest_dev" autocomplete="off" required></div></label><button class="btn btn-primary" type="submit">Сформировать поиск <svg><use href="#i-arrow"/></svg></button></form><div id="usernameResults" class="osint-results" hidden></div></article>
+          <div class="panel-card tool-card"><div class="panel-head"><div><h3>Поисковые операторы</h3><p>Создай запрос по публично индексируемым страницам</p></div></div><form id="dorkForm" class="tool-form"><label class="field"><span>Сайт или домен</span><div class="input-wrap"><svg><use href="#i-globe"/></svg><input id="dorkDomain" placeholder="example.com" maxlength="253"></div></label><label class="field"><span>Ключевые слова</span><div class="input-wrap"><svg><use href="#i-search"/></svg><input id="dorkTerm" placeholder="docs, profile, contact"></div></label><button type="submit" class="btn btn-ghost">Собрать Google-запрос</button></form><div id="dorkResults" class="osint-results" hidden></div></div>
+        </section>
+
+        <section class="page-panel" id="page-phone">
+          <div class="page-heading"><div class="eyebrow">CONTACT FOOTPRINT</div><h1>Телефон и email</h1><p>Локальная проверка формата и анализ DNS домена почты — без поиска скрытых персональных данных.</p></div>
+          <div class="osint-grid">
+            <article class="panel-card tool-card"><div class="tool-title"><span class="tool-symbol blue">TEL</span><div><h3>Номер телефона</h3><p>Нормализация международного формата</p></div></div><form id="phoneForm" class="tool-form"><label class="field"><span>Телефон с кодом страны</span><div class="input-wrap"><svg><use href="#i-mail"/></svg><input id="phoneInput" type="tel" maxlength="32" placeholder="+79991234567" autocomplete="tel" required></div></label><button class="btn btn-primary" type="submit">Проверить формат <svg><use href="#i-arrow"/></svg></button></form><div id="phoneResults" class="osint-results" hidden></div><div class="inline-note"><svg><use href="#i-info"/></svg> Без специального провайдера невозможно достоверно определить владельца номера. Сервис не делает такой поиск.</div></article>
+            <article class="panel-card tool-card"><div class="tool-title"><span class="tool-symbol violet">MAIL</span><div><h3>Email / MX Check</h3><p>Синтаксис адреса и DNS почтового домена</p></div></div><form id="emailForm" class="tool-form"><label class="field"><span>Email</span><div class="input-wrap"><svg><use href="#i-mail"/></svg><input id="emailInput" type="email" maxlength="254" placeholder="name@example.com" autocomplete="email" required></div></label><button class="btn btn-primary" type="submit">Проверить домен почты <svg><use href="#i-arrow"/></svg></button></form><div id="emailResults" class="osint-results" hidden></div><div class="inline-note"><svg><use href="#i-info"/></svg> Проверяет только почтовый домен: не ищет наличие ящика или упоминания в базах инцидентов.</div></article>
+          </div>
+        </section>
+
+        <section class="page-panel" id="page-url">
+          <div class="page-heading"><div class="eyebrow">URL & LINK ANALYSIS</div><h1>URL-анализ</h1><p>Разбор адреса, домена, параметров и потенциально подозрительных признаков без открытия сайта.</p></div>
+          <article class="panel-card tool-card"><form id="urlForm" class="tool-form"><label class="field"><span>URL</span><div class="input-wrap"><svg><use href="#i-globe"/></svg><input id="urlInput" type="text" placeholder="https://example.com/path?ref=123" maxlength="2048" required></div></label><button class="btn btn-primary" type="submit">Анализировать URL <svg><use href="#i-arrow"/></svg></button></form><div id="urlResults" class="osint-results" hidden></div></article>
+        </section>
+
+        <section class="page-panel" id="page-tools">
+          <div class="page-heading"><div class="eyebrow">LOCAL UTILITIES</div><h1>Инструменты</h1><p>Локальные утилиты и публичные справочники: хеширование, CIDR, JWT, кодировки, JSON, генерация паролей и многое другое.</p></div>
+          <div class="osint-grid">
+            <article class="panel-card tool-card"><div class="tool-title"><span class="tool-symbol blue">MAC</span><div><h3>MAC / OUI Lookup</h3><p>Производитель сетевого интерфейса по префиксу</p></div></div><form id="macForm" class="tool-form"><label class="field"><span>MAC-адрес или первые 6 hex-символов</span><div class="input-wrap"><svg><use href="#i-globe"/></svg><input id="macInput" maxlength="24" placeholder="00:1A:2B:3C:4D:5E" required></div></label><button class="btn btn-primary" type="submit">Найти производителя</button></form><div id="macResults" class="osint-results" hidden></div></article>
+            <article class="panel-card tool-card"><div class="tool-title"><span class="tool-symbol green">SHA</span><div><h3>Хеширование текста</h3><p>SHA-256 / SHA-384 / SHA-512 локально</p></div></div><form id="hashForm" class="tool-form"><label class="field"><span>Текст</span><textarea id="hashInput" rows="3" placeholder="Введите текст для вычисления хеша"></textarea></label><label class="field"><span>Алгоритм</span><select id="hashAlgorithm"><option value="SHA-256">SHA-256</option><option value="SHA-384">SHA-384</option><option value="SHA-512">SHA-512</option></select></label><button class="btn btn-primary" type="submit">Вычислить хеш</button></form><div id="hashResults" class="osint-results" hidden></div></article>
+            <article class="panel-card tool-card"><div class="tool-title"><span class="tool-symbol violet">FILE</span><div><h3>File Hash</h3><p>Хеш файла без загрузки на сервер</p></div></div><form id="fileHashForm" class="tool-form"><label class="field"><span>Выбери файл</span><input id="hashFile" class="file-input" type="file" required></label><button class="btn btn-primary" type="submit">Посчитать SHA-256</button></form><div id="fileHashResults" class="osint-results" hidden></div></article>
+            <article class="panel-card tool-card"><div class="tool-title"><span class="tool-symbol orange">PASS</span><div><h3>Оценка пароля</h3><p>Локальная эвристическая оценка — пароль не отправляется</p></div></div><form id="strengthForm" class="tool-form"><label class="field"><span>Пароль</span><div class="input-wrap"><svg><use href="#i-lock"/></svg><input id="strengthInput" type="password" autocomplete="off" maxlength="256" placeholder="Введите пароль" required></div></label><button class="btn btn-primary" type="submit">Оценить пароль</button></form><div id="strengthResults" class="osint-results" hidden></div></article>
+            <article class="panel-card tool-card"><div class="tool-title"><span class="tool-symbol blue">CVE</span><div><h3>CVE / уязвимости</h3><p>Поиск идентификаторов и advisory в публичных базах</p></div></div><form id="cveForm" class="tool-form"><label class="field"><span>CVE ID или ключевое слово</span><div class="input-wrap"><svg><use href="#i-search"/></svg><input id="cveInput" maxlength="120" placeholder="CVE-2024-3094 или OpenSSH" required></div></label><button class="btn btn-primary" type="submit">Открыть поиск CVE</button></form><div id="cveResults" class="osint-results" hidden></div></article>
+            <article class="panel-card tool-card"><div class="tool-title"><span class="tool-symbol green">EXIF</span><div><h3>Метаданные файла</h3><p>Базовые метаданные и SHA-256 выбранного файла</p></div></div><form id="fileInfoForm" class="tool-form"><label class="field"><span>Изображение или документ</span><input id="infoFile" class="file-input" type="file" required></label><button class="btn btn-primary" type="submit">Изучить файл</button></form><div id="fileInfoResults" class="osint-results" hidden></div><div class="inline-note"><svg><use href="#i-info"/></svg> Чтение EXIF GPS для всех форматов не реализовано; можно проверить только базовые свойства и хеш.</div></article>
+            <article class="panel-card tool-card"><div class="tool-title"><span class="tool-symbol blue">CIDR</span><div><h3>IP Subnet Calculator</h3><p>IPv4/IPv6: маска, сеть и диапазон адресов локально</p></div></div><form id="cidrForm" class="tool-form"><label class="field"><span>IPv4 или IPv6 / префикс</span><div class="input-wrap"><svg><use href="#i-globe"/></svg><input id="cidrInput" maxlength="50" placeholder="192.168.1.10/24 или 2001:db8::1/64" autocomplete="off" required></div></label><button class="btn btn-primary" type="submit">Рассчитать подсеть</button></form><div id="cidrResults" class="osint-results" hidden></div></article>
+            <article class="panel-card tool-card"><div class="tool-title"><span class="tool-symbol violet">JWT</span><div><h3>JWT Decoder</h3><p>Локальный разбор заголовка и payload без проверки подписи</p></div></div><form id="jwtForm" class="tool-form"><label class="field"><span>JWT-токен</span><textarea id="jwtInput" rows="3" maxlength="12000" placeholder="eyJhbGciOi..." required></textarea></label><button class="btn btn-primary" type="submit">Декодировать JWT</button></form><div id="jwtResults" class="osint-results" hidden></div><div class="inline-note"><svg><use href="#i-info"/></svg> Вставленный токен обрабатывается только в браузере. Декодирование не подтверждает подлинность подписи и не проверяет права доступа.</div></article>
+            <article class="panel-card tool-card"><div class="tool-title"><span class="tool-symbol green">TXT</span><div><h3>Кодировщик текста</h3><p>Base64 и URL encode/decode без передачи данных</p></div></div><form id="convertForm" class="tool-form"><label class="field"><span>Операция</span><select id="convertMode"><option value="base64-encode">Текст → Base64</option><option value="base64-decode">Base64 → текст UTF-8</option><option value="url-encode">Текст → URL encode</option><option value="url-decode">URL encode → текст</option><option value="hex-encode">Текст → HEX UTF-8</option><option value="hex-decode">HEX UTF-8 → текст</option></select></label><label class="field"><span>Входные данные</span><textarea id="convertInput" rows="3" maxlength="20000" placeholder="Введи текст" required></textarea></label><button class="btn btn-primary" type="submit">Преобразовать</button></form><div id="convertResults" class="osint-results" hidden></div></article>
+            <article class="panel-card tool-card"><div class="tool-title"><span class="tool-symbol orange">TIME</span><div><h3>Unix Timestamp</h3><p>Преобразование Unix-времени в локальную дату</p></div></div><form id="timestampForm" class="tool-form"><label class="field"><span>Timestamp (секунды / миллисекунды) или дата ISO</span><div class="input-wrap"><svg><use href="#i-clock"/></svg><input id="timestampInput" maxlength="80" placeholder="1735689600 или 2025-01-01T00:00:00Z" required></div></label><button class="btn btn-primary" type="submit">Преобразовать дату</button></form><div id="timestampResults" class="osint-results" hidden></div></article>
+            <article class="panel-card tool-card"><div class="tool-title"><span class="tool-symbol blue">JSON</span><div><h3>JSON Formatter</h3><p>Проверка синтаксиса, форматирование и минификация локально</p></div></div><form id="jsonForm" class="tool-form"><label class="field"><span>JSON</span><textarea id="jsonInput" rows="4" maxlength="50000" placeholder='{"name":"PrivacyGuard","active":true}' required></textarea></label><div class="form-actions"><button class="btn btn-primary" type="submit" name="jsonMode" value="pretty">Форматировать</button><button class="btn btn-ghost" type="submit" name="jsonMode" value="minify">Минифицировать</button></div></form><div id="jsonResults" class="osint-results" hidden></div></article>
+            <article class="panel-card tool-card"><div class="tool-title"><span class="tool-symbol green">GEN</span><div><h3>Password Generator</h3><p>Случайный пароль через Web Crypto API прямо в браузере</p></div></div><form id="passwordGeneratorForm" class="tool-form"><label class="field"><span>Длина: <b id="passwordLengthLabel">20</b></span><input id="passwordLength" type="range" min="12" max="64" value="20"></label><div class="generator-options"><label><input id="pgLower" type="checkbox" checked> строчные</label><label><input id="pgUpper" type="checkbox" checked> заглавные</label><label><input id="pgNumbers" type="checkbox" checked> цифры</label><label><input id="pgSymbols" type="checkbox" checked> символы</label></div><button class="btn btn-primary" type="submit">Сгенерировать пароль</button></form><div id="passwordGeneratorResults" class="osint-results" hidden></div><p class="result-footnote">Пароль создаётся локально, не отправляется в интернет и не сохраняется в истории.</p></article>
+            <article class="panel-card tool-card"><div class="tool-title"><span class="tool-symbol orange">HASH</span><div><h3>Hash Identifier</h3><p>Определение вероятных форматов по длине и сигнатуре</p></div></div><form id="hashIdentifyForm" class="tool-form"><label class="field"><span>Хеш или строка</span><input id="hashIdentifyInput" maxlength="512" autocomplete="off" placeholder="5f4dcc3b5aa765d61d8327deb882cf99" required></label><button class="btn btn-primary" type="submit">Определить формат</button></form><div id="hashIdentifyResults" class="osint-results" hidden></div><p class="result-footnote">Это эвристика, не проверка пароля и не подбор.</p></article>
+            <article class="panel-card tool-card"><div class="tool-title"><span class="tool-symbol blue">UUID</span><div><h3>UUID Generator</h3><p>Генерация UUID v4 с криптографической случайностью</p></div></div><form id="uuidForm" class="tool-form"><label class="field"><span>Количество (1–25)</span><input id="uuidCount" type="number" min="1" max="25" value="1" required></label><button class="btn btn-primary" type="submit">Создать UUID</button></form><div id="uuidResults" class="osint-results" hidden></div></article>
+            <article class="panel-card tool-card"><div class="tool-title"><span class="tool-symbol orange">MAIL</span><div><h3>Email Header Analyzer</h3><p>Разбор маршрута письма и Authentication-Results локально</p></div></div><form id="mailHeaderForm" class="tool-form"><label class="field"><span>Вставь исходные заголовки письма</span><textarea id="mailHeaderInput" rows="5" maxlength="30000" placeholder="From: sender@example.com&#10;Received: from mail.example.com ...&#10;Authentication-Results: ..." required></textarea></label><button class="btn btn-primary" type="submit">Анализировать заголовки</button></form><div id="mailHeaderResults" class="osint-results" hidden></div><p class="result-footnote">Вставляй только заголовки, не тело письма. Секреты и адреса не записываются в историю.</p></article>
+          </div>
+        </section>
+
+        <section class="page-panel" id="page-history">
+          <div class="page-heading heading-row"><div><div class="eyebrow">YOUR ACTIVITY LOG</div><h1>История</h1><p>Журнал действий без сохранения полных карт, телефонов, VIN и паролей.</p></div><button type="button" class="btn btn-ghost" id="refreshHistory"><svg><use href="#i-refresh"/></svg> Обновить</button></div>
+          <div class="history-summary"><div><span>Всего событий</span><b id="historyTotal">0</b></div><div><span>IP / сеть</span><b id="historyIp">0</b></div><div><span>Домены</span><b id="historyDomains">0</b></div><div><span>Другие инструменты</span><b id="historyOther">0</b></div></div>
+          <div class="panel-card history-card"><div class="panel-head"><div><h3>Все события</h3><p>Сохранённые записи Firestore</p></div><span class="live-label"><i></i> CLOUD SYNC</span></div><div class="history-toolbar"><label class="history-search"><span>Поиск по истории</span><input id="historyFilter" type="search" maxlength="100" placeholder="IP, домен, тип исследования…" autocomplete="off"></label><button type="button" class="btn btn-ghost" id="exportHistory">Экспорт CSV</button></div><div id="historyList" class="history-list"><div class="empty-state"><span class="empty-icon"><svg><use href="#i-clock"/></svg></span><b>История пуста</b><p>Здесь появятся события после исследований.</p></div></div></div>
+        </section>
+
+        <section class="page-panel" id="page-recommendations">
+          <div class="page-heading"><div class="eyebrow">PRIVACY CHECKLIST</div><h1>Центр защиты</h1><p>Практические шаги для снижения цифрового следа.</p></div>
+          <div class="recommend-hero"><div><span class="hero-badge"><span></span> SECURITY CHECKLIST</span><h2>Приватность — это привычка,<br><em>а не разовая проверка.</em></h2><p>Отмечай выполненные пункты. Прогресс сохранится в твоём аккаунте.</p></div><div class="recommend-progress"><div class="progress-circle" id="recommendCircle" style="--progress:0"><div><b id="recommendPercent">0%</b><small>готово</small></div></div></div></div>
+          <div class="section-subhead"><div><h2>Твой чек-лист безопасности</h2><p>6 базовых рекомендаций</p></div><span class="count-pill" id="recommendCount">0 из 6</span></div>
+          <div class="checklist" id="recommendChecklist">
+            <label class="check-item"><input type="checkbox" data-task="uniquePasswords"><span class="custom-check"><svg><use href="#i-check"/></svg></span><span class="check-copy"><b>Используй уникальные пароли</b><small>Не повторяй пароль между сервисами, используй менеджер.</small></span><span class="check-tag">АККАУНТЫ</span></label>
+            <label class="check-item"><input type="checkbox" data-task="twoFactor"><span class="custom-check"><svg><use href="#i-check"/></svg></span><span class="check-copy"><b>Включи MFA / 2FA</b><small>Защити почту, облако и финансовые сервисы вторым фактором.</small></span><span class="check-tag">ВХОД</span></label>
+            <label class="check-item"><input type="checkbox" data-task="recovery"><span class="custom-check"><svg><use href="#i-check"/></svg></span><span class="check-copy"><b>Проверь способы восстановления</b><small>Обнови резервную почту и телефон, удали неизвестные варианты.</small></span><span class="check-tag">АККАУНТЫ</span></label>
+            <label class="check-item"><input type="checkbox" data-task="sessions"><span class="custom-check"><svg><use href="#i-check"/></svg></span><span class="check-copy"><b>Проверь активные сеансы</b><small>Заверши незнакомые сессии и отзови ненужные токены приложений.</small></span><span class="check-tag">УСТРОЙСТВА</span></label>
+            <label class="check-item"><input type="checkbox" data-task="updates"><span class="custom-check"><svg><use href="#i-check"/></svg></span><span class="check-copy"><b>Обновляй ОС и приложения</b><small>Используй обновлённые версии и удаляй неиспользуемое ПО.</small></span><span class="check-tag">СИСТЕМА</span></label>
+            <label class="check-item"><input type="checkbox" data-task="privacy"><span class="custom-check"><svg><use href="#i-check"/></svg></span><span class="check-copy"><b>Ограничь публичные персональные данные</b><small>Убери из открытых профилей лишние контакты, адреса и документы.</small></span><span class="check-tag">OSINT</span></label>
+          </div>
+        </section>
+
+        <section class="page-panel" id="page-profile">
+          <div class="page-heading"><div class="eyebrow">ACCOUNT SETTINGS</div><h1>Мой профиль</h1><p>Настройки аккаунта PrivacyGuard.</p></div>
+          <div class="profile-layout"><article class="panel-card profile-card"><div class="profile-cover"></div><div class="profile-main"><div class="profile-avatar-large" id="profileAvatar">PG</div><div class="profile-title"><h2 id="profileDisplayName">Пользователь</h2><p id="profileDisplayEmail">user@example.com</p><span class="verified-label"><i></i> Firebase account</span></div></div><form id="profileForm"><label class="field"><span>Отображаемое имя</span><div class="input-wrap"><svg><use href="#i-user"/></svg><input id="profileName" type="text" maxlength="48" required></div></label><label class="field"><span>Email аккаунта</span><div class="input-wrap"><svg><use href="#i-mail"/></svg><input id="profileEmail" type="email" disabled></div></label><button class="btn btn-primary" type="submit">Сохранить профиль <svg><use href="#i-check"/></svg></button></form></article><aside class="panel-card account-info"><div class="info-icon"><svg><use href="#i-shield"/></svg></div><h3>Твой аккаунт</h3><div class="account-info-row"><span>UID</span><code id="profileUid">—</code></div><div class="account-info-row"><span>Метод входа</span><b id="profileProvider">Email / Password</b></div><div class="account-info-row"><span>Создан</span><b id="profileCreated">—</b></div><div class="info-divider"></div><p>История принадлежит текущему Firebase UID. Не сохраняй в этом сервисе полные номера карт, CVV, пароли или другие секреты.</p></aside></div>
+        </section>
+      </div>
+      <footer class="app-footer"><span>© 2026 PrivacyGuard · <button type="button" class="pg-footer-link" data-page="legal">Документы</button> · <button type="button" class="pg-footer-link" data-page="academy">Справка</button></span><span>OSINT Suite <i>·</i> Firebase Web · v3.1</span></footer>
+    </main>
+  </div>
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+</body>
+</html>

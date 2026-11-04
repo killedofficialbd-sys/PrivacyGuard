@@ -1,0 +1,163 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedInAs(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+
+    function boundedString(data, field, maxLength) {
+      return data[field] is string && data[field].size() <= maxLength;
+    }
+
+    match /users/{userId} {
+      allow read: if signedInAs(userId);
+      allow create, update: if signedInAs(userId)
+        && request.resource.data.uid == userId
+        && request.resource.data.keys().hasOnly([
+          'uid', 'displayName', 'email', 'photoURL',
+          'completedTasks', 'createdAt', 'updatedAt'
+        ])
+        && boundedString(request.resource.data, 'displayName', 48)
+        && request.resource.data.email is string
+        && request.resource.data.completedTasks is list
+        && request.resource.data.completedTasks.size() <= 6;
+      allow delete: if signedInAs(userId);
+
+      match /scans/{scanId} {
+        allow read: if signedInAs(userId);
+        allow create: if signedInAs(userId)
+          && request.resource.data.keys().hasOnly(['kind', 'target', 'summary', 'createdAt'])
+          && request.resource.data.kind in [
+            'ip', 'domain', 'bin', 'vin', 'iban', 'username', 'phone',
+            'email', 'url', 'mac', 'hash', 'file', 'password', 'cve',
+            'cidr', 'jwt', 'convert', 'timestamp', 'json', 'passwordgen',
+            'hashid', 'uuid', 'mailheader', 'tool'
+          ]
+          && boundedString(request.resource.data, 'target', 253)
+          && boundedString(request.resource.data, 'summary', 500);
+        allow update: if false;
+        allow delete: if signedInAs(userId);
+      }
+
+      match /domains/{domainId} {
+        allow read: if signedInAs(userId);
+        allow create, update: if signedInAs(userId)
+          && request.resource.data.keys().hasOnly([
+            'domain', 'monitoring', 'lastAudit', 'fingerprint',
+            'monitorStatus', 'lastChecked', 'updatedAt'
+          ])
+          && boundedString(request.resource.data, 'domain', 253)
+          && request.resource.data.monitoring == true;
+        allow delete: if signedInAs(userId);
+      }
+
+      match /projects/{projectId} {
+        allow read: if signedInAs(userId);
+        allow create, update: if signedInAs(userId)
+          && request.resource.data.keys().hasOnly([
+            'name', 'description', 'notes', 'color', 'tags', 'assetRefs', 'createdAt', 'updatedAt'
+          ])
+          && boundedString(request.resource.data, 'name', 70)
+          && boundedString(request.resource.data, 'description', 500)
+          && boundedString(request.resource.data, 'notes', 2000)
+          && request.resource.data.color in ['violet', 'blue', 'green', 'orange']
+          && request.resource.data.tags is list
+          && request.resource.data.tags.size() <= 8
+          && request.resource.data.assetRefs is list
+          && request.resource.data.assetRefs.size() <= 100;
+        allow delete: if signedInAs(userId);
+      }
+
+      match /assets/{assetId} {
+        allow read: if signedInAs(userId);
+        allow create, update: if signedInAs(userId)
+          && request.resource.data.keys().hasOnly([
+            'type', 'value', 'name', 'notes', 'tags', 'monitoring', 'status',
+            'createdAt', 'updatedAt', 'lastSnapshot', 'previousSnapshot',
+            'lastChecked', 'changes', 'changeHistory'
+          ])
+          && request.resource.data.type in ['domain', 'ip']
+          && boundedString(request.resource.data, 'value', 253)
+          && boundedString(request.resource.data, 'name', 70)
+          && boundedString(request.resource.data, 'notes', 500)
+          && request.resource.data.tags is list
+          && request.resource.data.tags.size() <= 12
+          && request.resource.data.monitoring is bool
+          && request.resource.data.status in ['new', 'checked', 'changed', 'error']
+          && (!('changes' in request.resource.data) || (request.resource.data.changes is list && request.resource.data.changes.size() <= 100))
+          && (!('changeHistory' in request.resource.data) || (request.resource.data.changeHistory is list && request.resource.data.changeHistory.size() <= 20))
+          && (!('lastSnapshot' in request.resource.data) || request.resource.data.lastSnapshot == null || request.resource.data.lastSnapshot is map)
+          && (!('previousSnapshot' in request.resource.data) || request.resource.data.previousSnapshot == null || request.resource.data.previousSnapshot is map);
+        allow delete: if signedInAs(userId);
+      }
+
+      match /reports/{reportId} {
+        allow read: if signedInAs(userId);
+        allow create, update: if signedInAs(userId)
+          && request.resource.data.keys().hasOnly([
+            'title', 'type', 'target', 'summary', 'severity', 'findings', 'snapshot', 'createdAt'
+          ])
+          && boundedString(request.resource.data, 'title', 180)
+          && request.resource.data.type in ['domain', 'ip']
+          && boundedString(request.resource.data, 'target', 253)
+          && boundedString(request.resource.data, 'summary', 500)
+          && request.resource.data.severity in ['INFO', 'LOW', 'MEDIUM', 'HIGH', 'CRITICAL']
+          && request.resource.data.findings is list
+          && request.resource.data.findings.size() <= 100
+          && request.resource.data.snapshot is map;
+        allow delete: if signedInAs(userId);
+      }
+
+      match /notifications/{notificationId} {
+        allow read: if signedInAs(userId);
+        allow create, update: if signedInAs(userId)
+          && request.resource.data.keys().hasOnly([
+            'type', 'title', 'message', 'assetId', 'read', 'createdAt'
+          ])
+          && boundedString(request.resource.data, 'type', 40)
+          && boundedString(request.resource.data, 'title', 120)
+          && boundedString(request.resource.data, 'message', 500)
+          && boundedString(request.resource.data, 'assetId', 128)
+          && request.resource.data.read is bool;
+        allow delete: if signedInAs(userId);
+      }
+
+      match /preferences/{preferenceId} {
+        allow read: if signedInAs(userId);
+        allow create, update: if signedInAs(userId)
+          && preferenceId == 'main'
+          && request.resource.data.keys().hasOnly(['theme', 'favorites', 'reducedMotion', 'updatedAt'])
+          && request.resource.data.theme in ['dark', 'light', 'system']
+          && request.resource.data.favorites is list
+          && request.resource.data.favorites.size() <= 50
+          && request.resource.data.reducedMotion is bool;
+        allow delete: if signedInAs(userId);
+      }
+
+      // Explicit document acceptance. Each version set has its own immutable record.
+      // The UID path binds the audit entry to the authenticated user; no IP or password is stored.
+      match /legalAcceptances/{acceptanceId} {
+        allow read: if signedInAs(userId);
+        allow create: if signedInAs(userId)
+          && acceptanceId == 'terms-1.0__privacy-1.0__aup-1.0'
+          && request.resource.data.keys().hasOnly([
+            'termsVersion', 'privacyVersion', 'acceptableUseVersion',
+            'acceptedTerms', 'acknowledgedPrivacy', 'acceptedAcceptableUse',
+            'method', 'locale', 'appVersion', 'acceptedAt'
+          ])
+          && request.resource.data.termsVersion == '1.0'
+          && request.resource.data.privacyVersion == '1.0'
+          && request.resource.data.acceptableUseVersion == '1.0'
+          && request.resource.data.acceptedTerms == true
+          && request.resource.data.acknowledgedPrivacy == true
+          && request.resource.data.acceptedAcceptableUse == true
+          && request.resource.data.method == 'explicit-checkboxes'
+          && request.resource.data.locale == 'ru'
+          && request.resource.data.appVersion == '3.1.0'
+          && request.resource.data.acceptedAt == request.time;
+        allow update: if false;
+        allow delete: if signedInAs(userId);
+      }
+    }
+  }
+}
